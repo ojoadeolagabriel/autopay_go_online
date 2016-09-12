@@ -59,6 +59,8 @@ public class AutoPayArrayAdapter extends ArrayAdapter<AutoPayProcessor> {
             //setup ui
             viewHolder.tvBankTitle.setTypeface(semi_bold);
             viewHolder.tvBankDescription.setTypeface(plain);
+            viewHolder.tvBankOnlineStatus.setTypeface(plain);
+
             convertView.setTag(viewHolder);
 
         } else {

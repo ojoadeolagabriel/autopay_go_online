@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_layer"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" android:paddingTop="60dp">
+        <TextView
+            android:textStyle="italic|bold"
+            android:textSize="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auto"
+            android:textColor="#fff" />
+        <TextView
+            android:textStyle="italic"
+            android:textSize="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gate"
+            android:textColor="#fff" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/isw_white" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvLoginTxt"
+            android:textSize="17dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="0dp"
+            android:text="Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvInstructions"
+            android:textSize="13dp"
+            android:textColor="@color/yellow"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="0dp"
+            android:text="You can login with your AutoPAY details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/user_small"
+            android:textSize="15dp"
+            android:id="@+id/enterUsername"
+            android:background="@drawable/edit_text"
+            android:padding="8dp"
+            android:layout_marginTop="50dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:hint="Username or email"
+            android:layout_width="@dimen/inputFieldLength"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/lock_small"
+            android:inputType="textPassword"
+            android:textSize="15dp"
+            android:id="@+id/enterPassword"
+            android:background="@drawable/edit_text"
+            android:padding="8dp"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:hint="Password"
+            android:layout_width="@dimen/inputFieldLength"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_marginTop="60dp"
+            android:textSize="13dp"
+            android:width="@dimen/inputFieldLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:id="@+id/btnLogin" />
+
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:textSize="17dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:text="Forgot Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

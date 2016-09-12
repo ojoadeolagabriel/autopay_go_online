@@ -38,6 +38,7 @@ import cz.msebera.android.httpclient.Header;
 import projects.synapse.com.autopaymonitors.R;
 import projects.synapse.com.autopaymonitors.adapters.AutoPayArrayAdapter;
 import projects.synapse.com.autopaymonitors.model.AutoPayProcessor;
+import projects.synapse.com.autopaymonitors.utility.AssetHelper;
 import projects.synapse.com.autopaymonitors.utility.NetworkHelper;
 
 /**
@@ -179,12 +180,12 @@ public class Main extends Activity {
         msgTemplate = String.format(msgTemplate, "Adeola, Ojo");
         ((TextView)findViewById(R.id.welcomeMsgTitle)).setText(msgTemplate);
 
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        Typeface plain = Typeface.createFromAsset(getAssets(),  "fonts/opensan-semi-bold.ttf");
 
+        Typeface plain = AssetHelper.getTypefaceByName(this, "fonts/opensan-semi-bold.ttf");
         TextView mTitle = (TextView) myToolbar.findViewById(R.id.toolbar_title);
+
         mTitle.setTypeface(plain);
         mTitle.setTextSize(16f);
         mTitle.setTextColor(Color.parseColor("#ffffff"));

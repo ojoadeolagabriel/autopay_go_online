@@ -13,4 +13,5 @@
         <item name="android:width">20dp</item>
         <item name="android:color">#c0c0c0</item>
     </style>
+
 </resources>
