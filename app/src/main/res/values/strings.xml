@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AutoGate Online</string>
+    <string name="welcome_message_template">Welcome [ %s ]</string>
+    <string name="bankico">bankIco</string>
+</resources>

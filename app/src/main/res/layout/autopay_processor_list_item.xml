@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:padding="8dp"  android:background="@drawable/item_background"
+    android:layout_height="70dp"  android:elevation="1dip" >
+
+    <ImageView
+        android:id="@+id/icon1"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="bankIco"
+        android:src="@mipmap/gtb"/>
+
+    <TextView
+        android:id="@+id/bankProcessorDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="26dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/icon1"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Description of bank"
+        android:textSize="12sp" />
+
+    <TextView
+        android:textSize="11dp"
+        android:paddingRight="4dp"
+        android:paddingTop="20dp"
+        android:text="OFFLINE"
+        android:layout_alignRight="@id/bankProcessorDescription"
+        android:id="@+id/bankProcessStatusDescription"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/bankProcessor"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bankProcessorDescription"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toRightOf="@id/icon1"
+        android:gravity="center_vertical"
+        android:text="Example application processor"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>
