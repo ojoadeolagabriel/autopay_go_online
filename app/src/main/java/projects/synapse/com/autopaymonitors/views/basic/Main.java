@@ -12,6 +12,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -38,6 +40,7 @@ import cz.msebera.android.httpclient.Header;
 import projects.synapse.com.autopaymonitors.R;
 import projects.synapse.com.autopaymonitors.adapters.AutoPayArrayAdapter;
 import projects.synapse.com.autopaymonitors.model.AutoPayProcessor;
+import projects.synapse.com.autopaymonitors.model.LoginInformation;
 import projects.synapse.com.autopaymonitors.utility.AssetHelper;
 import projects.synapse.com.autopaymonitors.utility.NetworkHelper;
 
@@ -53,13 +56,21 @@ public class Main extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
         //load ui elements
-        loadDateTime();
         loadMenu();
+        loadDateTime();
+
         loadEventHandler();
         loadUserInformation();
 
@@ -176,8 +187,10 @@ public class Main extends Activity {
 
     private void loadMenu() {
 
+        LoginInformation info = (LoginInformation)getIntent().getSerializableExtra("loginInformation");
+
         String msgTemplate = getResources().getString(R.string.welcome_message_template);
-        msgTemplate = String.format(msgTemplate, "Adeola, Ojo");
+        msgTemplate = String.format(msgTemplate, info.username);
         ((TextView)findViewById(R.id.welcomeMsgTitle)).setText(msgTemplate);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
