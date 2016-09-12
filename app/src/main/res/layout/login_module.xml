@@ -73,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+
         <EditText
             android:drawablePadding="10dp"
             android:drawableLeft="@drawable/user_small"
@@ -92,6 +93,7 @@
             android:drawableLeft="@drawable/lock_small"
             android:inputType="textPassword"
             android:textSize="15dp"
+            android:maxLines="1"
             android:id="@+id/enterPassword"
             android:background="@drawable/edit_text"
             android:padding="8dp"

@@ -1,9 +1,6 @@
 package projects.synapse.com.autopaymonitors.views.basic;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -82,7 +79,7 @@ public class LoginView extends Activity {
                     if(isPasswordInValid)
                         extraMsg += "password";
 
-                    AlertHelper.Warning("You left out your " + extraMsg, "Oops! Something went wrong!", LoginView.this);
+                    AlertHelper.Warning("Kindly check your " + extraMsg, "Oops! Something went wrong!", LoginView.this);
                     loginPnl.setVisibility(View.VISIBLE);
                     progressPnl.setVisibility(View.GONE);
                     return;
