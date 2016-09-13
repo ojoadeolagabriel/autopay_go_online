@@ -2,11 +2,13 @@ package projects.synapse.com.autopaymonitors.views.basic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -31,8 +33,10 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import projects.synapse.com.autopaymonitors.R;
 import projects.synapse.com.autopaymonitors.adapters.AutoPayArrayAdapter;
+import projects.synapse.com.autopaymonitors.facade.AppConstants;
 import projects.synapse.com.autopaymonitors.model.AutoPayProcessor;
 import projects.synapse.com.autopaymonitors.model.LoginInformation;
+import projects.synapse.com.autopaymonitors.utility.AlertHelper;
 import projects.synapse.com.autopaymonitors.utility.AssetHelper;
 import projects.synapse.com.autopaymonitors.utility.NetworkHelper;
 import projects.synapse.com.autopaymonitors.utility.ResourceHelper;
@@ -61,10 +65,18 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        SharedPreferences config = getSharedPreferences(AppConstants.applicationConfig, Activity.MODE_PRIVATE);
+        boolean isFirstBlood = config.getBoolean("isFirstTime", true);
+        if(isFirstBlood){
+            AlertHelper.Warning("Prepare for awesome", "Wow! This is your first time!", this);
+            SharedPreferences.Editor edit = config.edit();
+            edit.putBoolean("isFirstTime", false);
+            edit.commit();
+        }
+
         //load ui elements
         loadMenu();
         loadDateTime();
-
         loadEventHandler();
         loadUserInformation();
 
@@ -77,9 +89,9 @@ public class Main extends Activity {
 
         //check if network connection is available
         if (NetworkHelper.isNetworkAvailable(this)) {
-            callApi(processors, autoPayArrayAdapter);
+            getBankProcessors(processors, autoPayArrayAdapter);
         }else{
-            Toast.makeText(this, "Network not availabale, check connectivity and refresh", Toast.LENGTH_SHORT);
+            AlertHelper.Warning("Access to the internet is required!", "Oops! No network found!", this);
         }
     }
 
@@ -89,14 +101,11 @@ public class Main extends Activity {
         msg.setTypeface(plain);
     }
 
-    public void callApi(final List<AutoPayProcessor> processors, final AutoPayArrayAdapter autoPayArrayAdapter) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setConnectTimeout(5000);
-
+    public void getBankProcessors(final List<AutoPayProcessor> processors, final AutoPayArrayAdapter autoPayArrayAdapter) {
         //use new handler
         RestService restService = new RestService();
-
         String url = ResourceHelper.getValue(R.string.autopay_api_url_v1, this);
+
         restService.getCall(url, null, new RestService.IResultHandler() {
             @Override
             public void Handle(RestService.Result data) {
@@ -119,10 +128,9 @@ public class Main extends Activity {
                                 processor.description = item.getString("BankDescription") + " transaction processor";
                                 processors.add(processor);
                             } catch (Exception exc) {
-
+                                Log.e("ProcBnkDsc", exc.getMessage());
                             }
                         }
-
                         autoPayArrayAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
