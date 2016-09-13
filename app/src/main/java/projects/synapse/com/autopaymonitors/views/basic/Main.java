@@ -1,24 +1,17 @@
 package projects.synapse.com.autopaymonitors.views.basic;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Handler;
 
 import cz.msebera.android.httpclient.Header;
 import projects.synapse.com.autopaymonitors.R;
@@ -43,6 +35,8 @@ import projects.synapse.com.autopaymonitors.model.AutoPayProcessor;
 import projects.synapse.com.autopaymonitors.model.LoginInformation;
 import projects.synapse.com.autopaymonitors.utility.AssetHelper;
 import projects.synapse.com.autopaymonitors.utility.NetworkHelper;
+import projects.synapse.com.autopaymonitors.utility.ResourceHelper;
+import projects.synapse.com.autopaymonitors.utility.RestService;
 
 /**
  */
@@ -99,19 +93,16 @@ public class Main extends Activity {
         AsyncHttpClient client = new AsyncHttpClient();
         client.setConnectTimeout(5000);
 
-        try {
-            client.get("http://paydirectonline.com/paydirect/autopay_paydirect/AutoGateService", new AsyncHttpResponseHandler() {
+        //use new handler
+        RestService restService = new RestService();
 
-                @Override
-                public void onStart() {
-                    // called before request is started
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                    int len = response.length;
+        String url = ResourceHelper.getValue(R.string.autopay_api_url_v1, this);
+        restService.getCall(url, null, new RestService.IResultHandler() {
+            @Override
+            public void Handle(RestService.Result data) {
+                if(data.statusCode.equals("200")){
                     try {
-                        String str = new String(response, "UTF-8");
+                        String str = data.restResponse;
                         JSONObject resp = new JSONObject(str);
                         JSONArray array = resp.getJSONArray("BankHealthInformation");
                         processors.clear();
@@ -133,29 +124,17 @@ public class Main extends Activity {
                         }
 
                         autoPayArrayAdapter.notifyDataSetChanged();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
+                        e.printStackTrace();
 
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(), "api call to autopay: fail " + data.statusCode, Toast.LENGTH_SHORT).show();
                 }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                    // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                    Toast.makeText(getApplicationContext(), "api call to autopay: fail " + statusCode, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onRetry(int retryNo) {
-                    // called when request is retried
-                }
-            });
-        }catch(Exception ex){
-            Toast.makeText(getApplicationContext(), "Please check your network connection", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
     }
 
     /***

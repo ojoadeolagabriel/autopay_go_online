@@ -81,6 +81,8 @@
             android:id="@+id/enterUsername"
             android:background="@drawable/edit_text"
             android:padding="8dp"
+            android:maxLines="1"
+            android:inputType="text"
             android:layout_marginTop="50dp"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
@@ -93,7 +95,6 @@
             android:drawableLeft="@drawable/lock_small"
             android:inputType="textPassword"
             android:textSize="15dp"
-            android:maxLines="1"
             android:id="@+id/enterPassword"
             android:background="@drawable/edit_text"
             android:padding="8dp"
@@ -120,9 +121,8 @@
         <Button
             android:layout_marginTop="60dp"
             android:textSize="13dp"
-            android:width="@dimen/inputFieldLength"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/inputFieldLength"
+            android:layout_height="45dp"
             android:text="LOGIN"
             android:id="@+id/btnLogin" />
 
