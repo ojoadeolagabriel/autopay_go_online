@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">AutoGate Online</string>
+    <string name="app_name">AutoGate</string>
     <string name="welcome_message_template">Welcome [ %s ]</string>
     <string name="bankico">bankIco</string>
+    <string name="appVersion">v 0.7</string>
     <string name="autopay_api_url_v1">http://paydirectonline.com/paydirect/autopay_paydirect/AutoGateService</string>
 </resources>

@@ -80,7 +80,7 @@ public class LoginView extends Activity {
                     if(isPasswordInValid)
                         extraMsg += "password";
 
-                    AlertHelper.Warning("Kindly check your " + extraMsg, "Oops! Something went wrong!", LoginView.this);
+                    AlertHelper.Warning("Include your " + extraMsg, "Oops! Something went wrong!", LoginView.this);
                     loginPnl.setVisibility(View.VISIBLE);
                     progressPnl.setVisibility(View.GONE);
                     return;

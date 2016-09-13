@@ -71,7 +71,7 @@ public class Main extends Activity {
             AlertHelper.Warning("Prepare for awesome", "Wow! This is your first time!", this);
             SharedPreferences.Editor edit = config.edit();
             edit.putBoolean("isFirstTime", false);
-            edit.commit();
+            edit.apply();
         }
 
         //load ui elements
@@ -101,6 +101,11 @@ public class Main extends Activity {
         msg.setTypeface(plain);
     }
 
+    /***
+     * Get bank processors
+     * @param processors
+     * @param autoPayArrayAdapter
+     */
     public void getBankProcessors(final List<AutoPayProcessor> processors, final AutoPayArrayAdapter autoPayArrayAdapter) {
         //use new handler
         RestService restService = new RestService();
