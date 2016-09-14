@@ -1,46 +1,38 @@
 package projects.synapse.com.autopaymonitors.views.basic;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.Dialog;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Color;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 import projects.synapse.com.autopaymonitors.R;
 import projects.synapse.com.autopaymonitors.adapters.AutoPayArrayAdapter;
 import projects.synapse.com.autopaymonitors.facade.AppConstants;
 import projects.synapse.com.autopaymonitors.model.AutoPayProcessor;
 import projects.synapse.com.autopaymonitors.model.LoginInformation;
 import projects.synapse.com.autopaymonitors.utility.AlertHelper;
-import projects.synapse.com.autopaymonitors.utility.AssetHelper;
+import projects.synapse.com.autopaymonitors.utility.ImageHelper;
 import projects.synapse.com.autopaymonitors.utility.NetworkHelper;
 import projects.synapse.com.autopaymonitors.utility.ResourceHelper;
 import projects.synapse.com.autopaymonitors.utility.RestService;
@@ -62,7 +54,7 @@ public class Main extends BaseActivity {
 
         SharedPreferences config = getSharedPreferences(AppConstants.applicationConfig, Activity.MODE_PRIVATE);
         boolean isFirstBlood = config.getBoolean("isFirstTime", true);
-        if(isFirstBlood){
+        if (isFirstBlood) {
             AlertHelper.Warning("Still in beta edition!", "Wow! This is your first time!", this);
             SharedPreferences.Editor edit = config.edit();
             edit.putBoolean("isFirstTime", false);
@@ -89,7 +81,7 @@ public class Main extends BaseActivity {
         //check if network connection is available
         if (NetworkHelper.isNetworkAvailable(this)) {
             getBankProcessors(processors, autoPayArrayAdapter);
-        }else{
+        } else {
             AlertHelper.Warning("Access to the internet is required!", "Oops! No network found!", this);
         }
     }
@@ -97,20 +89,21 @@ public class Main extends BaseActivity {
     /***
      * loadUserInformation
      */
-    public void loadUserInformation(){
-        TextView msg = (TextView)findViewById(R.id.welcomeMsgTitle);
-        Typeface plain = Typeface.createFromAsset(getAssets(),  "fonts/opensan-semi-bold.ttf");
+    public void loadUserInformation() {
+        TextView msg = (TextView) findViewById(R.id.welcomeMsgTitle);
+        Typeface plain = Typeface.createFromAsset(getAssets(), "fonts/opensan-semi-bold.ttf");
         msg.setTypeface(plain);
 
-        LoginInformation info = (LoginInformation)getIntent().getSerializableExtra("loginInformation");
+        LoginInformation info = (LoginInformation) getIntent().getSerializableExtra("loginInformation");
 
         String msgPrefix = AlertHelper.greeting();
         msgPrefix = String.format(msgPrefix, info.username);
-        ((TextView)findViewById(R.id.welcomeMsgTitle)).setText(msgPrefix);
+        ((TextView) findViewById(R.id.welcomeMsgTitle)).setText(msgPrefix);
     }
 
     /***
      * Get bank processors
+     *
      * @param processors
      * @param autoPayArrayAdapter
      */
@@ -122,7 +115,7 @@ public class Main extends BaseActivity {
         restService.getCall(url, null, new RestService.IResultHandler() {
             @Override
             public void Handle(RestService.Result data) {
-                if(data.statusCode.equals("200")){
+                if (data.statusCode.equals("200")) {
                     try {
                         String str = data.restResponse;
                         JSONObject resp = new JSONObject(str);
@@ -151,7 +144,7 @@ public class Main extends BaseActivity {
                         e.printStackTrace();
 
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "api call to autopay: fail " + data.statusCode, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -162,14 +155,40 @@ public class Main extends BaseActivity {
      * load Event Handler
      */
     private void loadEventHandler() {
-        ListView listView = (ListView)findViewById(R.id.listOfAutogateProcessors);
+        ListView listView = (ListView) findViewById(R.id.listOfAutogateProcessors);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AutoPayProcessor processor = (AutoPayProcessor)parent.getItemAtPosition(position);
-                Intent bankProcDetailIntent = new Intent(Main.this, BankProcessDetail.class);
-                bankProcDetailIntent.putExtra("bankProcessor", processor);
-                startActivity(bankProcDetailIntent);
+                AutoPayProcessor processor = (AutoPayProcessor) parent.getItemAtPosition(position);
+                final Dialog dialog = new Dialog(Main.this);
+                dialog.setContentView(R.layout.bank_summary_popup);
+
+                int resID = getResources().getIdentifier("bank_" + processor.code, "drawable", getPackageName());
+                if (resID != 0) {
+                    ((ImageView) dialog.findViewById(R.id.imgBankLogo)).setImageResource(resID);
+                    ((ImageView) dialog.findViewById(R.id.imgBankLogo)).setImageBitmap(ImageHelper.roundCornerImage(BitmapFactory.decodeResource(Main.this.getResources(), resID), 30));
+                }
+
+                TextView tv = ((TextView) dialog.findViewById(R.id.tvBankTitle));
+                TextView tvBankDescription = ((TextView) dialog.findViewById(R.id.tvBankDescription));
+                tv.setText(processor.name);
+                tvBankDescription.setText(processor.description);
+
+                Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/opensan-semi-bold.ttf");
+                Typeface plain = Typeface.createFromAsset(getAssets(), "fonts/open-san-light.ttf");
+                tv.setTypeface(bold);
+                tvBankDescription.setTypeface(plain);
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
             }
         });
     }
@@ -178,10 +197,10 @@ public class Main extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM, dd yyyy");
         String currentDateandTime = sdf.format(new Date());
 
-        TextView tv = ((TextView)findViewById(R.id.welcomeMsgExtra));
+        TextView tv = ((TextView) findViewById(R.id.welcomeMsgExtra));
         tv.setText(currentDateandTime);
 
-        Typeface plain = Typeface.createFromAsset(getAssets(),  "fonts/open-san-light.ttf");
+        Typeface plain = Typeface.createFromAsset(getAssets(), "fonts/open-san-light.ttf");
         tv.setTypeface(plain);
     }
 
