@@ -18,7 +18,8 @@ import projects.synapse.com.autopaymonitors.utility.AssetHelper;
 /**
  * Created by AdeolaOjo on 9/12/2016.
  */
-public class LoginView extends Activity {
+public class LoginView extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class LoginView extends Activity {
         final TextView tvUsername = (TextView) findViewById(R.id.enterUsername);
         final TextView tvPassword = (TextView) findViewById(R.id.enterPassword);
         final CheckBox cbxRemember = (CheckBox) findViewById(R.id.cbxRemember);
+        final TextView tvAppVersion = (TextView) findViewById(R.id.tvAppVersion);
 
         TextView tvLoginTxt = (TextView) findViewById(R.id.tvLoginTxt);
         TextView tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
@@ -38,6 +40,7 @@ public class LoginView extends Activity {
         tvUsername.setTypeface(AssetHelper.getTypefaceByName(this, "fonts/open-san-light.ttf"));
         tvForgotPassword.setTypeface(AssetHelper.getTypefaceByName(this, "fonts/open-san-light.ttf"));
         tvPassword.setTypeface(AssetHelper.getTypefaceByName(this, "fonts/open-san-light.ttf"));
+        tvAppVersion.setTypeface(AssetHelper.getTypefaceByName(this, "fonts/open-san-light.ttf"));
         tvLoginTxt.setTypeface(AssetHelper.getTypefaceByName(this, "fonts/open-san-light.ttf"));
         cbxRemember.setTypeface(AssetHelper.getTypefaceByName(this, "fonts/open-san-light.ttf"));
 

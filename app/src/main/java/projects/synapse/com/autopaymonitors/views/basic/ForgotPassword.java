@@ -13,7 +13,7 @@ import projects.synapse.com.autopaymonitors.utility.AssetHelper;
 /**
  * Created by AdeolaOjo on 9/12/2016.
  */
-public class ForgotPassword extends Activity {
+public class ForgotPassword extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class ForgotPassword extends Activity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertHelper.Warning("Feature not yet supported!","Oops! feature not supported!", ForgotPassword.this);
+                AlertHelper.Warning("We are working on this feature!","Aww! not yet ready", ForgotPassword.this);
             }
         });
 

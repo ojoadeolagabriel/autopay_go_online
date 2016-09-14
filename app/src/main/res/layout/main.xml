@@ -9,31 +9,39 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:elevation="5dp"
+        android:contentDescription=""
+        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/isw_blue"
-        android:contentDescription="@string/app_name"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <ImageView
             android:layout_centerHorizontal="true"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/isw_no_background" />
+            android:src="@drawable/isw_white_small" />
 
         <TextView
             android:id="@+id/toolbar_title"
+            android:textStyle="italic|bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/app_name"
-            android:textColor="#ffffff" />
+            android:text="Auto"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/toolbar_title_1"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gate"
+            android:textColor="#fff" />
 
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -42,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-            android:paddingBottom="8dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="11dp"
             android:paddingTop="8dp"
             android:text="@string/welcome_message_template" />
@@ -51,8 +59,8 @@
             android:id="@+id/welcomeMsgExtra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:paddingRight="15dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="11dp"
             android:paddingTop="8dp"
             android:text="currentDate"
             android:textColor="#000000" />
@@ -76,6 +84,7 @@
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:paddingTop="8dp"
+            android:paddingBottom="10dp"
             />
 
         <RelativeLayout

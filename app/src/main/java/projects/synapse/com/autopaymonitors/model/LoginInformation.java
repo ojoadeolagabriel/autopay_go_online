@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by AdeolaOjo on 9/12/2016.
  */
 public class LoginInformation implements Serializable {
-    public String username;
+    public String username = "Oadeola";
     public String password;
+    public String roleDescription = "Administrator";
 }

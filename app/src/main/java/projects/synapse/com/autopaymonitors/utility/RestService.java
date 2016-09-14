@@ -36,7 +36,9 @@ public class RestService {
     public Result getCall(String url, Map<String, String> headers, final IResultHandler handler){
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.setConnectTimeout(5000);
+        client.setConnectTimeout(60000);
+        client.setResponseTimeout(60000);
+
         if(headers!=null && headers.size() > 0){
             Iterator iterator = headers.entrySet().iterator();
             while (iterator.hasNext()){

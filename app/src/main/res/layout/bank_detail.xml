@@ -43,20 +43,8 @@
             android:id="@+id/icon2"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@mipmap/ic_refresh_gray"/>
+            android:src="@drawable/question"/>
 
     </LinearLayout>
-    
-    <LinearLayout
-        android:layout_marginTop="3dp"
-        android:background="@drawable/item_background_gray"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"></LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="3dp"
-        android:background="@drawable/item_background_gray"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></LinearLayout>
 
 </LinearLayout>

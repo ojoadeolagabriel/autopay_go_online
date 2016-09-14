@@ -6,12 +6,15 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,19 +47,11 @@ import projects.synapse.com.autopaymonitors.utility.RestService;
 
 /**
  */
-public class Main extends Activity {
-
-    private Toolbar supportActionBar;
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-
-    }
+public class Main extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -68,14 +63,18 @@ public class Main extends Activity {
         SharedPreferences config = getSharedPreferences(AppConstants.applicationConfig, Activity.MODE_PRIVATE);
         boolean isFirstBlood = config.getBoolean("isFirstTime", true);
         if(isFirstBlood){
-            AlertHelper.Warning("Prepare for awesome", "Wow! This is your first time!", this);
+            AlertHelper.Warning("Still in beta edition!", "Wow! This is your first time!", this);
             SharedPreferences.Editor edit = config.edit();
             edit.putBoolean("isFirstTime", false);
             edit.apply();
         }
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         //load ui elements
-        loadMenu();
+        loadToolBarArtifacts();
         loadDateTime();
         loadEventHandler();
         loadUserInformation();
@@ -95,10 +94,19 @@ public class Main extends Activity {
         }
     }
 
+    /***
+     * loadUserInformation
+     */
     public void loadUserInformation(){
         TextView msg = (TextView)findViewById(R.id.welcomeMsgTitle);
         Typeface plain = Typeface.createFromAsset(getAssets(),  "fonts/opensan-semi-bold.ttf");
         msg.setTypeface(plain);
+
+        LoginInformation info = (LoginInformation)getIntent().getSerializableExtra("loginInformation");
+
+        String msgPrefix = AlertHelper.greeting();
+        msgPrefix = String.format(msgPrefix, info.username);
+        ((TextView)findViewById(R.id.welcomeMsgTitle)).setText(msgPrefix);
     }
 
     /***
@@ -133,7 +141,7 @@ public class Main extends Activity {
                                 processor.description = item.getString("BankDescription") + " transaction processor";
                                 processors.add(processor);
                             } catch (Exception exc) {
-                                Log.e("ProcBnkDsc", exc.getMessage());
+                                Log.e("ReadBankProcData", exc.getMessage());
                             }
                         }
                         autoPayArrayAdapter.notifyDataSetChanged();
@@ -177,26 +185,7 @@ public class Main extends Activity {
         tv.setTypeface(plain);
     }
 
-    private void loadMenu() {
+    private void loadToolBarArtifacts() {
 
-        LoginInformation info = (LoginInformation)getIntent().getSerializableExtra("loginInformation");
-
-        String msgTemplate = getResources().getString(R.string.welcome_message_template);
-        msgTemplate = String.format(msgTemplate, info.username);
-        ((TextView)findViewById(R.id.welcomeMsgTitle)).setText(msgTemplate);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        Typeface plain = AssetHelper.getTypefaceByName(this, "fonts/opensan-semi-bold.ttf");
-        TextView mTitle = (TextView) myToolbar.findViewById(R.id.toolbar_title);
-
-        mTitle.setTypeface(plain);
-        mTitle.setTextSize(16f);
-        mTitle.setTextColor(Color.parseColor("#ffffff"));
-    }
-
-    public void setSupportActionBar(Toolbar supportActionBar) {
-        this.supportActionBar = supportActionBar;
     }
 }
