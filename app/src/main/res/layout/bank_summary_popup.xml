@@ -32,18 +32,25 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:padding="2dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
-            android:text="processor online?"
+            android:text="processor online ?"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal|center_vertical"
             android:id="@+id/tvIsOnline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:src="@drawable/good"
+            android:id="@+id/imgBankLogoIsOnline"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="is paused?"
+            android:text="is suspended ?"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
@@ -59,6 +66,12 @@
             android:id="@+id/tvIsPaused"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:src="@drawable/good"
+            android:id="@+id/imgBankLogoIsSuspended"/>
     </LinearLayout>
 
     <LinearLayout
@@ -66,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="is stp enabled?"
+            android:text="can perform straight through ?"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
@@ -74,6 +87,11 @@
             android:id="@+id/tvIsStp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:src="@drawable/good"
+            android:id="@+id/imgBankLogoIsStp"/>
     </LinearLayout>
 
     <Button
