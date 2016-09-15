@@ -8,6 +8,7 @@
         android:id="@+id/imgBankLogo"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="60dp"
         android:layout_height="60dp" />
 
@@ -32,11 +33,15 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:padding="2dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:src="@drawable/good"
+            android:id="@+id/imgBankLogoIsOnline"/>
         <TextView
             android:text="processor online ?"
             android:layout_marginLeft="10dp"
@@ -45,39 +50,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <ImageView
-            android:layout_height="20dp"
-            android:layout_width="20dp"
-            android:src="@drawable/good"
-            android:id="@+id/imgBankLogoIsOnline"/>
-
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:src="@drawable/good"
+            android:id="@+id/imgBankLogoIsSuspended"/>
+
         <TextView
             android:text="is suspended ?"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal|center_vertical"
             android:id="@+id/tvIsPaused"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <ImageView
-            android:layout_height="20dp"
-            android:layout_width="20dp"
-            android:src="@drawable/good"
-            android:id="@+id/imgBankLogoIsSuspended"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:src="@drawable/good"
+            android:id="@+id/imgBankLogoIsStp"/>
+
         <TextView
             android:text="can perform straight through ?"
             android:layout_marginLeft="10dp"
@@ -87,18 +97,38 @@
             android:id="@+id/tvIsStp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_height="20dp"
-            android:layout_width="20dp"
-            android:src="@drawable/good"
-            android:id="@+id/imgBankLogoIsStp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f1f1f1"/>
+
+    <LinearLayout
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="last 5 response codes"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:id="@+id/tvLastReponseCodes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
     <Button
         android:layout_marginTop="40dp"
         android:textSize="13dp"
         android:text="ok"
-        android:layout_height="45dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal|center_vertical"
         android:id="@+id/btnSubmit"

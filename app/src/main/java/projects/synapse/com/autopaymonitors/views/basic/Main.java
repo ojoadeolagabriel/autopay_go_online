@@ -169,7 +169,17 @@ public class Main extends BaseActivity {
                     ((ImageView) dialog.findViewById(R.id.imgBankLogo)).setImageBitmap(ImageHelper.roundCornerImage(BitmapFactory.decodeResource(Main.this.getResources(), resID), 30));
                 }
 
+
+                if(!processor.isEnabled){
+                    ((ImageView) dialog.findViewById(R.id.imgBankLogoIsOnline)).setImageResource(R.drawable.red);
+                }
+
+                if(processor.isPaused){
+                    ((ImageView) dialog.findViewById(R.id.imgBankLogoIsSuspended)).setImageResource(R.drawable.red);
+                }
+
                 TextView tv = ((TextView) dialog.findViewById(R.id.tvBankTitle));
+                TextView tvLastReponseCodes = ((TextView) dialog.findViewById(R.id.tvLastReponseCodes));
                 TextView tvBankDescription = ((TextView) dialog.findViewById(R.id.tvBankDescription));
                 tv.setText(processor.name);
                 tvBankDescription.setText(processor.description);
@@ -178,6 +188,7 @@ public class Main extends BaseActivity {
                 Typeface plain = Typeface.createFromAsset(getAssets(), "fonts/open-san-light.ttf");
                 tv.setTypeface(bold);
                 tvBankDescription.setTypeface(plain);
+                tvLastReponseCodes.setTypeface(plain);
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.btnSubmit);
                 // if button is clicked, close the custom dialog
